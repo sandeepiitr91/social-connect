@@ -37,6 +37,12 @@ app.controller('MainCtrl', ['$http', '$location', '$state', '$stateParams', func
       method: 'POST',
       url: 'https://www.linkedin.com/oauth/v2/accessToken',
       data: serializedData,
+      transformRequest: function(obj) {
+        var str = [];
+        for(var p in obj)
+        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+        return str.join("&");
+      },
       headers: {
           'Content-Type': 'application/x-www-form-urlencoded'
       }}).then(function (response) {
