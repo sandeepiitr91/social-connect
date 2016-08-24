@@ -23,7 +23,7 @@ app.config(function($httpProvider, $stateProvider, $urlRouterProvider) {
     });
 
 });
-app.controller('MainCtrl', ['$http', '$location', '$state' function($http, $location, $state){
+app.controller('MainCtrl', ['$http', '$location', '$state', function($http, $location, $state){
   this.values = $location.search();
   if(!!this.values && this.values.code) {
     $state.go('home', {code : this.values.code});
