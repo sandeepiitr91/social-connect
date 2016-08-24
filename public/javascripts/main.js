@@ -2,7 +2,8 @@
 
 
 var app = angular.module('testUserAuth', ['ui.router']);
-app.config(function($httpProvider, $stateProvider, $urlRouterProvider) {
+app.config(function($httpProvider, $stateProvider, $urlRouterProvider, $locationProvider) {
+  $locationProvider.html5Mode(true);
   $httpProvider.defaults.useXDomain = true;
   delete $httpProvider.defaults.headers.common['X-Requested-With'];
   $urlRouterProvider.otherwise('/');
