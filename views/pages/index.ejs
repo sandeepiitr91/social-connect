@@ -4,18 +4,10 @@
   <% include ../partials/header.ejs %>
 </head>
 
-<body>
+<body ng-app="testUserAuth">
 
   <% include ../partials/nav.ejs %>
-
-  <body>
-    <div ng-app="testUser">
-      <div ng-controller="MainCtrl as vm">
-        <button ng-click="vm.addUser()">
-        Add Random Test User
-        </button>
-      
-      </div>
-    </div>
+  <div ui-view>
+  </div>
   </body>
 </html>

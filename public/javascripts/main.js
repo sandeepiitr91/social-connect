@@ -1,10 +1,34 @@
 // Code goes here
 
 
-angular.module('testUser', []).config(function($httpProvider) {
+var app = angular.module('testUserAuth', ['ui.router']);
+app.config(function($httpProvider, $stateProvider, $urlRouterProvider) {
   $httpProvider.defaults.useXDomain = true;
   delete $httpProvider.defaults.headers.common['X-Requested-With'];
-}).controller('MainCtrl', ['$http', function($http){
+  $urlRouterProvider.otherwise('/');
+  $stateProvider.state('root', {
+      url: '/',
+      template: '<div>\
+          <button><a href="http://www.linkedin.com/oauth/v2/authorization?client_id=816dleijgt4exs&response_type=code&redirect_uri=https://sleepy-wildwood-51219.herokuapp.com/&state=XXXA354S78D968ASDA789SD8567rg456ASD&scope=r_basicprofile">Start Authentication</a></button> \
+      </div>',
+      controller: 'MainCtrl',
+      controllerAs: 'ctrl'
+    }).state('home', {
+      url: '/home?:code',
+      template: '<div>\
+        {{ctrl.value}}\
+      </div>',
+      controller: 'MainCtrl',
+      controllerAs: 'ctrl'
+    });
+
+});
+app.controller('MainCtrl', ['$http', '$location', '$state' function($http, $location, $state){
+  this.values = $location.search();
+  if(!!this.values && this.values.code) {
+    $state.go('home', {code : this.values.code});
+  }
+  this.value = $stateParams.code;
 	this.addUser = function() {
   	var user = this.createUser();
   	// $http.post('http://dev.datetheramp.com/dev/api/app/user/invites/requests/', user).then(function(data){
