@@ -22,6 +22,7 @@ app.controller('MainCtrl', ['$http', '$location', '$state', '$stateParams', func
   this.step = 1;
   this.response = $location.search();
   if(!!this.response && this.response.code) {
+    $location.search({});
     this.step = 2;
   }
   this.startSecondStep = function () {
