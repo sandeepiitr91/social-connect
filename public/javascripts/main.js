@@ -9,9 +9,9 @@ app.config(function($httpProvider, $stateProvider, $urlRouterProvider, $location
   $urlRouterProvider.otherwise('/');
   $stateProvider.state('root', {
       url: '/',
-      template: '<div>{{ctrl.response}}</div>\
-        </div ng-if="ctrl.step == 1"><div><button><a href="http://www.linkedin.com/oauth/v2/authorization?client_id=816dleijgt4exs&response_type=code&redirect_uri=https://sleepy-wildwood-51219.herokuapp.com/&state=XXXA354S78D968ASDA789SD8567rg456ASD&scope=r_basicprofile">Start Second Step</a></button></div>\
-        </div ng-if="ctrl.step == 2"><div><button ng-click="ctrl.startSecondStep()">Start Second Step</button></div>\
+      template: '<div><pre>{{ctrl.response | json}}</pre></div>\
+        </div ng-if="ctrl.step == 1"><div><button><a href="http://www.linkedin.com/oauth/v2/authorization?client_id=816dleijgt4exs&response_type=code&redirect_uri=https://sleepy-wildwood-51219.herokuapp.com/&state=XXXA354S78D968ASDA789SD8567rg456ASD&scope=r_basicprofile">Start First Step</a></button></div>\
+        </div><div nf-if="ctrl.step == 2"><button ng-click="ctrl.startSecondStep()">Start Second Step</button></div>\
       ',
       controller: 'MainCtrl',
       controllerAs: 'ctrl'
