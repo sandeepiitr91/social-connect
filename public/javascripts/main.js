@@ -12,11 +12,11 @@ angular.module('testUser', []).config(function($httpProvider) {
    //  }, function(data){
    //  	console.log("Failure");
    //  });
-   $http.get("http://www.linkedin.com/oauth/v2/authorization", {
+   $http.get("https://www.linkedin.com/oauth/v2/authorization", {
         params: {
             "response_type": "code",
             "client_id": '81ljsncw1be1qi',
-            "redirect_uri": "http://localhost:63342/auth/linkedin/callback",
+            "redirect_uri": "https://localhost:63342/auth/linkedin/callback",
             "state": "XXXYXYXYX",
             "scope": "r_basicprofile"
         }
