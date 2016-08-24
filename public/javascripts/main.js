@@ -16,9 +16,9 @@ app.config(function($httpProvider, $stateProvider, $urlRouterProvider, $location
       controllerAs: 'ctrl'
     }).state('home', {
       url: '/home?:code',
-      template: '<div>\
-        {{ctrl.value}}\
-      </div>',
+      template: '<div><pre>\
+        {{ctrl.value | json}}\
+      </pre></div>',
       controller: 'MainCtrl',
       controllerAs: 'ctrl'
     });
@@ -29,7 +29,7 @@ app.controller('MainCtrl', ['$http', '$location', '$state', '$stateParams', func
   if(!!this.values && this.values.code) {
     $state.go('home', {code : this.values.code});
   }
-  this.value = $stateParams.code;
+  this.value = $stateParams;
 	this.addUser = function() {
   	var user = this.createUser();
   	// $http.post('http://dev.datetheramp.com/dev/api/app/user/invites/requests/', user).then(function(data){
