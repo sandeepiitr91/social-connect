@@ -9,27 +9,41 @@ app.config(function($httpProvider, $stateProvider, $urlRouterProvider, $location
   $urlRouterProvider.otherwise('/');
   $stateProvider.state('root', {
       url: '/',
-      template: '<div>\
-          <button><a href="http://www.linkedin.com/oauth/v2/authorization?client_id=816dleijgt4exs&response_type=code&redirect_uri=https://sleepy-wildwood-51219.herokuapp.com/&state=XXXA354S78D968ASDA789SD8567rg456ASD&scope=r_basicprofile">Start Authentication</a></button> \
-      </div>',
-      controller: 'MainCtrl',
-      controllerAs: 'ctrl'
-    }).state('home', {
-      url: '/home?:code',
-      template: '<div><pre>\
-        {{ctrl.value | json}}\
-      </pre></div>',
+      template: '<div>{{ctrl.response}}</div>\
+        </div ng-if="ctrl.step == 1"><div><button><a href="http://www.linkedin.com/oauth/v2/authorization?client_id=816dleijgt4exs&response_type=code&redirect_uri=https://sleepy-wildwood-51219.herokuapp.com/&state=XXXA354S78D968ASDA789SD8567rg456ASD&scope=r_basicprofile">Start Second Step</a></button></div>\
+        </div ng-if="ctrl.step == 2"><div><button ng-click="ctrl.startSecondStep()">Start Second Step</button></div>\
+      '
       controller: 'MainCtrl',
       controllerAs: 'ctrl'
     });
 
 });
 app.controller('MainCtrl', ['$http', '$location', '$state', '$stateParams', function($http, $location, $state, $stateParams){
-  this.values = $location.search();
-  if(!!this.values && this.values.code) {
-    $state.go('home', {code : this.values.code});
+  this.step = 1;
+  this.response = $location.search();
+  if(!!this.response && this.response.code) {
+    this.step = 2;
   }
-  this.value = $stateParams;
+  this.startSecondStep = function () {
+     $http.post("https://www.linkedin.com/oauth/v2/accessToken", {
+          params: {
+              "grant_type": "authorization_code",
+              "code": this.response.code,
+              "redirect_uri": "https://sleepy-wildwood-51219.herokuapp.com",
+              "client_id": "816dleijgt4exs",
+              "client_secret": "HDUsxzoTv0MrwGJG"
+          }
+      }).then(function (response) { / /
+              console.log(response);
+              this.step = 3;
+              this.response = response;
+      }.bind(this));  
+  };
+
+  this.startThirdStep = function() {
+      $http.po
+  };
+
 	this.addUser = function() {
   	var user = this.createUser();
   	// $http.post('http://dev.datetheramp.com/dev/api/app/user/invites/requests/', user).then(function(data){
