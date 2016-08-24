@@ -25,18 +25,24 @@ app.controller('MainCtrl', ['$http', '$location', '$state', '$stateParams', func
     this.step = 2;
   }
   this.startSecondStep = function () {
-     $http.post("https://www.linkedin.com/oauth/v2/accessToken", {
-          params: {
-              "grant_type": "authorization_code",
-              "code": this.response.code,
-              "redirect_uri": "https://sleepy-wildwood-51219.herokuapp.com",
-              "client_id": "816dleijgt4exs",
-              "client_secret": "HDUsxzoTv0MrwGJG"
-          }
-      }).then(function (response) { / /
-              console.log(response);
-              this.step = 3;
-              this.response = response;
+    serializedData = {
+      "grant_type": "authorization_code",
+      "code": this.response.code,
+      "redirect_uri": "https://sleepy-wildwood-51219.herokuapp.com",
+      "client_id": "816dleijgt4exs",
+      "client_secret": "HDUsxzoTv0MrwGJG"
+    };
+
+    $http({
+      method: 'POST',
+      url: 'https://www.linkedin.com/oauth/v2/accessToken',
+      data: serializedData,
+      headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+      }}).then(function (response) {
+        console.log(response);
+        this.step = 3;
+        this.response = response;
       }.bind(this));  
   };
 
