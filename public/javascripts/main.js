@@ -52,7 +52,7 @@ app.controller('MainCtrl', ['$http', '$location', '$state', '$stateParams', func
     //     this.step = 3;
     //     this.response = response;
     //   }.bind(this));  
-    post('https://www.linkedin.com/oauth/v2/accessToken', serializedData);
+    post('https://www.linkedin.com/oauth/v2/accessToken', serializedData, "get");
   };
 
   function post(path, params, method) {
