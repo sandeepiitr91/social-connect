@@ -30,7 +30,7 @@ app.controller('MainCtrl', ['$http', '$location', '$state', '$stateParams', func
     serializedData = {
       "grant_type": "authorization_code",
       "code": this.response.code,
-      "redirect_uri": "https://sleepy-wildwood-51219.herokuapp.com",
+      "redirect_uri": "https://sleepy-wildwood-51219.herokuapp.com/",
       "client_id": "816dleijgt4exs",
       "client_secret": "HDUsxzoTv0MrwGJG"
     };
