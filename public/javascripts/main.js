@@ -21,11 +21,12 @@ app.config(function($httpProvider, $stateProvider, $urlRouterProvider, $location
 app.controller('MainCtrl', ['$http', '$location', '$state', '$stateParams', function($http, $location, $state, $stateParams){
   this.step = 1;
   this.response = $location.search();
-  if(!!this.response && this.response.code) {
-    $location.search({});
-    this.step = 2;
-  }
-  this.startSecondStep = function () {
+  if(!!this.response){
+    if(this.response.code) {
+      $location.search({});
+      this.step = 2;
+    }
+  } this.startSecondStep = function () {
     serializedData = {
       "grant_type": "authorization_code",
       "code": this.response.code,
@@ -34,54 +35,47 @@ app.controller('MainCtrl', ['$http', '$location', '$state', '$stateParams', func
       "client_secret": "HDUsxzoTv0MrwGJG"
     };
 
-    $http({
-      method: 'POST',
-      url: 'https://www.linkedin.com/oauth/v2/accessToken',
-      data: serializedData,
-      transformRequest: function(obj) {
-        var str = [];
-        for(var p in obj)
-        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-        return str.join("&");
-      },
-      headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-      }}).then(function (response) {
-        console.log(response);
-        this.step = 3;
-        this.response = response;
-      }.bind(this));  
+    // $http({
+    //   method: 'POST',
+    //   url: 'https://www.linkedin.com/oauth/v2/accessToken',
+    //   data: serializedData,
+    //   transformRequest: function(obj) {
+    //     var str = [];
+    //     for(var p in obj)
+    //     str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+    //     return str.join("&");
+    //   },
+    //   headers: {
+    //       'Content-Type': 'application/x-www-form-urlencoded'
+    //   }}).then(function (response) {
+    //     console.log(response);
+    //     this.step = 3;
+    //     this.response = response;
+    //   }.bind(this));  
+    post('https://www.linkedin.com/oauth/v2/accessToken', serializedData);
   };
 
-  this.startThirdStep = function() {
-      $http.po
-  };
+  function post(path, params, method) {
+      method = method || "post"; // Set method to post by default if not specified.
 
-	this.addUser = function() {
-  	var user = this.createUser();
-  	// $http.post('http://dev.datetheramp.com/dev/api/app/user/invites/requests/', user).then(function(data){
-   //  	console.log("Success");
-   //  }, function(data){
-   //  	console.log("Failure");
-   //  });
-   $http.get("https://www.linkedin.com/oauth/v2/authorization", {
-        params: {
-            "response_type": "code",
-            "client_id": '81ljsncw1be1qi',
-            "redirect_uri": "https://localhost:63342/auth/linkedin/callback",
-            "state": "XXXYXYXYX",
-            "scope": "r_basicprofile"
-        }
-    }).then(function (response) { / /
-            console.log(response);
-    }.bind(this));
-  }
-  this.createUser = function(){
-  	var num = parseInt('999' + Math.random() * 10000000);
-  	return {
-    	email: 'test_user_' + num + '@gmail.com',
-      name: 'Test User',
-      mobile: num
-    }
-	}
+      // The rest of this code assumes you are not using a library.
+      // It can be made less wordy if you use one.
+      var form = document.createElement("form");
+      form.setAttribute("method", method);
+      form.setAttribute("action", path);
+
+      for(var key in params) {
+          if(params.hasOwnProperty(key)) {
+              var hiddenField = document.createElement("input");
+              hiddenField.setAttribute("type", "hidden");
+              hiddenField.setAttribute("name", key);
+              hiddenField.setAttribute("value", params[key]);
+
+              form.appendChild(hiddenField);
+           }
+      }
+
+      document.body.appendChild(form);
+      form.submit();
+  };
 }]);
