@@ -67,7 +67,7 @@ app.controller('MainCtrl', ['$http', '$location', '$state', '$stateParams', func
       for(var key in params) {
           if(params.hasOwnProperty(key)) {
               var hiddenField = document.createElement("input");
-              hiddenField.setAttribute("type", "hidden");
+              //hiddenField.setAttribute("type", "hidden");
               hiddenField.setAttribute("name", key);
               hiddenField.setAttribute("value", params[key]);
 
