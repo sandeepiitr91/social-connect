@@ -34,7 +34,7 @@ app.controller('MainCtrl', ['$auth', '$http', '$q', '$window', '$interval', '$ti
   } 
 
   this.startFirstStep = function(){
-    window.location.href = "https://www.linkedin.com/oauth/v2/authorization?client_id=816dleijgt4exs&response_type=code&redirect_uri=http://localhost:5000/&state=XXXA354S78D968ASDA789SD8567rg456ASD&scope=r_basicprofile";
+    window.location.href = "https://www.linkedin.com/oauth/v2/authorization?client_id=816dleijgt4exs&response_type=code&redirect_uri=https://sleepy-wildwood-51219.herokuapp.com/&state=XXXA354S78D968ASDA789SD8567rg456ASD&scope=r_basicprofile";
   }
 
   this.startSecondStep = function () {
