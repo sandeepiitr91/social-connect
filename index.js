@@ -25,7 +25,7 @@ app.post('/auth/linkedin', function(req, res) {
     "grant_type": "authorization_code",
     "code": reqBody.code,
     "redirect_uri": "https://sleepy-wildwood-51219.herokuapp.com/",
-    "redirect_uri": "http://localhost:5000/",
+    // "redirect_uri": "http://localhost:5000/",
     "client_id": "816dleijgt4exs",
     "client_secret": "HDUsxzoTv0MrwGJG"
   };
