@@ -29,7 +29,20 @@ app.post('/auth/linkedin', function(req, res) {
     "client_id": "816dleijgt4exs",
     "client_secret": "HDUsxzoTv0MrwGJG"
   };
-  request({url: 'https://www.linkedin.com/oauth/v2/accessToken/', form: serializedData}, function(err, httpResponse, body){
+  request.post({url: 'https://www.linkedin.com/oauth/v2/accessToken/', form: serializedData}, function(err, httpResponse, body){
+  	console.log(arguments);
+  	res.send(body);
+	  res.end();
+  });
+});
+
+app.post('/info/linkedin', function(req, res) {
+	console.log(req.body);
+	
+	var reqBody = req.body,
+	accessToken = reqBody.accessToken;
+  var url = 'https://api.linkedin.com/v1/people/~?oauth2_access_token='+accessToken+'&format=json';
+  request({url: url}, function(err, httpResponse, body){
   	console.log(arguments);
   	res.send(body);
 	  res.end();
